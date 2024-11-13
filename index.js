@@ -1,7 +1,12 @@
 const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 const { generateAiAnswer } = require('./gemini');
+const express = require('express');
+const app = express();
 
+app.get('/', (req, res) => {
+    return res.send("Welcome");
+})
 
 const token = process.env.TELEGRAM_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
@@ -32,3 +37,8 @@ bot.on('message', async (msg) => {
         console.log(e);
     }
 });
+
+
+app.listen(3000, () => {
+    console.log("Server listening on port 3000")
+})
